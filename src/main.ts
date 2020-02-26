@@ -16,7 +16,12 @@ async function bootstrap() {
   SwaggerModule.setup(swaggerPath, app, document);
 
   await app.listen(port);
-  console.log(`App is listening at http://localhost:${port}`);
-  console.log(`App is listening at http://localhost:${port}/${swaggerPath}`);
+  console.log('');
+  console.log('----------------');
+  console.log('App running at:');
+  console.log(`- App:     http://localhost:${port}`);
+  console.log(`- Swagger: http://localhost:${port}/${swaggerPath}`);
+  console.log('----------------');
+  console.log('');
 }
 bootstrap();
