@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.entity';
 import { UsersService } from './users.service';
 import { ApiTags, ApiOperation, ApiProperty } from '@nestjs/swagger';
@@ -8,13 +9,6 @@ import { ApiTags, ApiOperation, ApiProperty } from '@nestjs/swagger';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  @ApiTags('用户')
-  @ApiOperation({ summary: '创建用户' })
-  create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.create(createUserDto);
-  }
-
   @Get()
   @ApiTags('用户')
   @ApiOperation({ summary: '获取用户列表' })
@@ -22,11 +16,25 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @Post()
+  @ApiTags('用户')
+  @ApiOperation({ summary: '创建用户' })
+  create(@Body() createUserDto: CreateUserDto): Promise<User> {
+    return this.usersService.create(createUserDto);
+  }
+
   @Get(':id')
   @ApiTags('用户')
   @ApiOperation({ summary: '获取用户信息' })
   findOne(@Param('id') id: string): Promise<User> {
     return this.usersService.findOne(id);
+  }
+
+  @Put(':id')
+  @ApiTags('用户')
+  @ApiOperation({ summary: '更新用户' })
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): Promise<User> {
+    return this.usersService.update(id, updateUserDto);
   }
 
   @Delete(':id')

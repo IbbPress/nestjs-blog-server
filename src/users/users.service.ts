@@ -10,6 +10,14 @@ export class UsersService {
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
   ) {}
+  
+  async findAll(): Promise<User[]> {
+    return this.usersRepository.find({ select: ["username", "realName", "isActive"] });
+  }
+
+  findOne(id: string): Promise<User> {
+    return this.usersRepository.findOne(id);
+  }
 
   create(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
@@ -19,12 +27,14 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
-  async findAll(): Promise<User[]> {
-    return this.usersRepository.find({ select: ["username", "password", "isActive"] });
-  }
-
-  findOne(id: string): Promise<User> {
-    return this.usersRepository.findOne(id);
+  async update(id: string, createUserDto: CreateUserDto): Promise<User> {
+    const { username, realName } = createUserDto
+    const user = await this.usersRepository.findOne(id);
+    this.usersRepository.merge(user, {
+      username,
+      realName
+    });
+    return this.usersRepository.save(user);
   }
 
   async remove(id: string): Promise<void> {
