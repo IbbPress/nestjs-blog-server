@@ -1,32 +1,33 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# Nestjs 开发博客 Server 端
 
-[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
-[travis-url]: https://travis-ci.org/nestjs/nest
-[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
-[linux-url]: https://travis-ci.org/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
-<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
-<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
-  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+基于TypeScript的NodeJs框架：Nestjs 开发博客 Server 端 ( nodejs + nestjs + mysql)
 
-## Description
+## 表结构
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### posts 表结构
+| column   | dataType    | pk主键 | nn 不为空 | AI自动增加 | 默认值 |
+| ---      | ---         | ---    | ---      |---        | ---    |
+| id       | int         | Y      |Y         | Y         |        |
+| title    | varchar(50) |        |Y         |           |        |
+| content  | longtext    |        |Y         |           |        |
+| createAt | bigint(20)  |        |Y         |           |    0   |
+| author   | varchar(20) |        |Y         |           |        |
+
+### users 表结构
+
+| column   | dataType    | pk主键 | nn 不为空 | AI自动增加 | 默认值 |
+| ---      | ---         | ---    | ---      |---        | ---    |
+| id       | int         | Y      | Y        | Y         |        |
+| username | varchar(20) |        | Y        |           |        |
+| realName | varchar(10) |        | Y        |           |        |
+| password | varchar(20) |        | Y        |           |        |
+
+### 关于数据类型
+
+- `int`: 数字类型
+- `bigint` 数字类型，但是范围要比 `int` 类型大，毫秒级时间戳 13 位，无法使用 `int` 类型
+- `varchar(20)`: 表示长度为 20 的字符串
+- `longtext`: 可以存储很大的内容，不再限制长度，最大可以存储 4G 大小
 
 ## Installation
 
@@ -59,17 +60,3 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-  Nest is [MIT licensed](LICENSE).
