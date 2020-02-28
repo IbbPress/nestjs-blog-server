@@ -22,19 +22,22 @@ export class PostService {
   }
 
   create(createPostDto: CreatePostDto): Promise<PostEntity> {
-    const user = new PostEntity();
-    user.title = createPostDto.title;
-    user.content = createPostDto.content;
-    user.author = createPostDto.author;
-
-    return this.PostsRepo.save(user);
+    const post = new PostEntity();
+    post.title = createPostDto.title;
+    post.content = createPostDto.content;
+    post.author = createPostDto.author;
+    post.createAt = Date.now()
+    console.log('post is: ', post);
+    
+    return this.PostsRepo.save(post);
   }
 
   async update(id: string, updatePostDto: UpdatePostDto): Promise<PostEntity> {
     const { title, content } = updatePostDto
+    const updateAt = Date.now()
     const post = await this.PostsRepo.findOne(id)
     this.PostsRepo.merge(post, {
-      title, content
+      title, content, updateAt
     })
     return this.PostsRepo.save(post)
   }
