@@ -5,42 +5,47 @@ import { User } from './user.entity';
 import { UsersService } from './users.service';
 import { ApiTags, ApiOperation, ApiProperty } from '@nestjs/swagger';
 
-@Controller('users')
+@Controller('api/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
   @ApiTags('用户')
   @ApiOperation({ summary: '获取用户列表' })
-  findAll(): Promise<User[]> {
-    return this.usersService.findAll();
+  async findAll() {
+    const data = await this.usersService.findAll();
+    return { data };
   }
 
   @Post()
   @ApiTags('用户')
   @ApiOperation({ summary: '创建用户' })
-  create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto) {
+    const data = await this.usersService.create(createUserDto);
+    return { data };
   }
 
   @Get(':id')
   @ApiTags('用户')
   @ApiOperation({ summary: '获取用户信息' })
-  findOne(@Param('id') id: string): Promise<User> {
-    return this.usersService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const data = await this.usersService.findOne(id);
+    return { data };
   }
 
   @Put(':id')
   @ApiTags('用户')
   @ApiOperation({ summary: '更新用户' })
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): Promise<User> {
-    return this.usersService.update(id, updateUserDto);
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    const data = await this.usersService.update(id, updateUserDto);
+    return { data };
   }
 
   @Delete(':id')
   @ApiTags('用户')
   @ApiOperation({ summary: '删除用户' })
-  remove(@Param('id') id: string): Promise<void> {
-    return this.usersService.remove(id);
+  async remove(@Param('id') id: string) {
+    const data = await this.usersService.remove(id);
+    return { data };
   }
 }
