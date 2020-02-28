@@ -1,26 +1,31 @@
 # Nestjs 开发博客 Server 端
 
+[![nestjs](https://img.shields.io/badge/nestjs-%5E6.14.2-brightgreen.svg) ](https://github.com/nestjs/nest)
+[![License](https://img.shields.io/npm/l/package.json.svg?style=flat)](https://github.com/IbbPress/nestjs-blog-server/blob/master/LICENSE)
+
 基于TypeScript的NodeJs框架：Nestjs 开发博客 Server 端 ( nodejs + nestjs + mysql)
 
 ## 表结构
 
 ### posts 表结构
-| column   | dataType    | pk主键 | nn 不为空 | AI自动增加 | 默认值 |
-| ---      | ---         | ---    | ---      |---        | ---    |
-| id       | int         | Y      |Y         | Y         |        |
-| title    | varchar(50) |        |Y         |           |        |
-| content  | longtext    |        |Y         |           |        |
-| createAt | bigint(20)  |        |Y         |           |    0   |
-| author   | varchar(20) |        |Y         |           |        |
+| column   | dataType    | pk主键 | nn 不为空 | AI自动增加  | 默认值  | 描述    |
+| ---      | ---         | ---    | ---      |---        | ---    | ---    |
+| id       | int         | Y      |Y         | Y         |        | 主键递增 |
+| title    | varchar(50) |        |Y         |           |        | 标题    |
+| content  | longtext    |        |Y         |           |        | 内容    |
+| createAt | bigint(20)  |        |Y         |           |    0   | 创建时间 |
+| updateAt | bigint(20)  |        |Y         |           |    0   | 更新时间 |
+| author   | varchar(20) |        |Y         |           |        | 作者 |
 
 ### users 表结构
 
-| column   | dataType    | pk主键 | nn 不为空 | AI自动增加 | 默认值 |
-| ---      | ---         | ---    | ---      |---        | ---    |
-| id       | int         | Y      | Y        | Y         |        |
-| username | varchar(20) |        | Y        |           |        |
-| realName | varchar(10) |        | Y        |           |        |
-| password | varchar(20) |        | Y        |           |        |
+| column   | dataType    | pk主键 | nn 不为空 | AI自动增加  | 默认值  | 描述    |
+| ---      | ---         | ---    | ---      |---        | ---    | ---    |
+| id       | int         | Y      | Y        | Y         |        | 主键递增 |
+| username | varchar(20) |        | Y        |           |        | 用户名   |
+| realName | varchar(10) |        | Y        |           |        | 真实名字 |
+| password | varchar(20) |        | Y        |           |        | 密码    |
+| avator   | varchar(255) |       | Y        |           |        | 头像    |
 
 ### 关于数据类型
 
