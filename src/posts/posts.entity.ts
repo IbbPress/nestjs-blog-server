@@ -11,6 +11,18 @@ export class PostEntity {
   @Column()
   content: string;
 
-  @Column()
+  @Column({ default: 'wencaizhang' })
   author: string;
+
+  @Column({ type: 'bigint', width: 25, default: null })
+  createAt: number;
+  
+  @Column({ type: 'bigint', width: 25, default: null })
+  updateAt: number;
+  
+  @Column({ default: false })
+  isPublic: boolean;
+
+  @Column({ default: false })
+  del: boolean;
 }
