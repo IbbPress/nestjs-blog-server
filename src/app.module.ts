@@ -5,9 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { PostsModule } from './posts/posts.module';
 import { UsersModule } from './users/users.module';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
+    MulterModule.register({
+      dest: 'uploads',
+    }),
     TypeOrmModule.forRoot(),
     PostsModule,
     UsersModule,
