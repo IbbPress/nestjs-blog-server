@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { LoginDto } from './dto/login.dto';
 import { User } from './user.entity';
 import { UsersService } from './users.service';
 import { ApiTags, ApiOperation, ApiProperty } from '@nestjs/swagger';
@@ -46,6 +47,18 @@ export class UsersController {
   @ApiOperation({ summary: '删除用户' })
   async remove(@Param('id') id: string) {
     const data = await this.usersService.remove(id);
+    return { data };
+  }
+
+  @Post('login')
+  @ApiTags('用户')
+  @ApiOperation({ summary: '登录' })
+  async login(@Body() loginDto: LoginDto) {
+    const data = await this.usersService.login(loginDto);
+    console.log('data is: ', data);
+    if (!data) {
+      return { desc: '用户名或密码不正确' }
+    }
     return { data };
   }
 }
