@@ -7,11 +7,11 @@ import { UsersService } from './users.service';
 import { ApiTags, ApiOperation, ApiProperty } from '@nestjs/swagger';
 
 @Controller('api/users')
+@ApiTags('用户')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  @ApiTags('用户')
   @ApiOperation({ summary: '获取用户列表' })
   async findAll() {
     const data = await this.usersService.findAll();
@@ -19,7 +19,6 @@ export class UsersController {
   }
 
   @Post()
-  @ApiTags('用户')
   @ApiOperation({ summary: '创建用户' })
   async create(@Body() createUserDto: CreateUserDto) {
     const data = await this.usersService.create(createUserDto);
@@ -27,7 +26,6 @@ export class UsersController {
   }
 
   @Get(':id')
-  @ApiTags('用户')
   @ApiOperation({ summary: '获取用户信息' })
   async findOne(@Param('id') id: string) {
     const data = await this.usersService.findOne(id);
@@ -35,7 +33,6 @@ export class UsersController {
   }
 
   @Put(':id')
-  @ApiTags('用户')
   @ApiOperation({ summary: '更新用户' })
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     const data = await this.usersService.update(id, updateUserDto);
@@ -43,7 +40,6 @@ export class UsersController {
   }
 
   @Delete(':id')
-  @ApiTags('用户')
   @ApiOperation({ summary: '删除用户' })
   async remove(@Param('id') id: string) {
     const data = await this.usersService.remove(id);
@@ -51,7 +47,6 @@ export class UsersController {
   }
 
   @Post('login')
-  @ApiTags('用户')
   @ApiOperation({ summary: '登录' })
   async login(@Body() loginDto: LoginDto) {
     const data = await this.usersService.login(loginDto);
