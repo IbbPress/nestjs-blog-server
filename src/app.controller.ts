@@ -26,8 +26,7 @@ export class AppController {
   async uploadFile (@UploadedFile('file') file) {
     console.log(file);
     console.log(file.filename);
-    return {
-      url: `http://localhost:3000/uploads/${file.filename}`
-    }
+    file.url = file.url.replace(process.env.OSS_ALIYUN_DOMAIN, process.env.OSS_MY_DOMAIN)
+    return file
   }
 }
