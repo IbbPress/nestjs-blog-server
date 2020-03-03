@@ -13,15 +13,15 @@ export class AppController {
 
   @Post('api/upload')
   @UseInterceptors(FileInterceptor('file', {
-    storage: diskStorage({
-      destination: 'uploads/',
-      filename: function (req, file, cb) {
-        console.log('filename ------');
-        const fileFormat = (file.originalname).split(".");
-        const filename = `${fileFormat[0]}-${Date.now()}.${fileFormat[fileFormat.length - 1]}`
-        cb(null, filename)
-      }
-    })
+    // storage: diskStorage({
+    //   destination: 'uploads/',
+    //   filename: function (req, file, cb) {
+    //     console.log('filename ------');
+    //     const fileFormat = (file.originalname).split(".");
+    //     const filename = `${fileFormat[0]}-${Date.now()}.${fileFormat[fileFormat.length - 1]}`
+    //     cb(null, filename)
+    //   }
+    // })
   }))
   async uploadFile (@UploadedFile('file') file) {
     console.log(file);
