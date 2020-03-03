@@ -9,7 +9,7 @@ async function bootstrap() {
   app.useStaticAssets('uploads', {
     prefix: '/uploads',
   })
-  const port = 3000
+  const PORT = process.env.SERVER_PORT || 3002
   const swaggerPath = 'api-doc'
 
   app.useGlobalPipes(new ValidationPipe())
@@ -22,12 +22,12 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup(swaggerPath, app, document);
 
-  await app.listen(port);
+  await app.listen(PORT);
   console.log('');
   console.log('----------------');
   console.log('App running at:');
-  console.log(`- App:     http://localhost:${port}`);
-  console.log(`- Swagger: http://localhost:${port}/${swaggerPath}`);
+  console.log(`- App:     http://localhost:${PORT}`);
+  console.log(`- Swagger: http://localhost:${PORT}/${swaggerPath}`);
   console.log('----------------');
   console.log('');
 }
