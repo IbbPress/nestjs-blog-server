@@ -2,6 +2,13 @@ import { Controller, Get, Post, UseInterceptors, UploadedFile } from '@nestjs/co
 import { AppService } from './app.service';
 import { FileInterceptor } from "@nestjs/platform-express";
 import { diskStorage } from  'multer';
+import { ApiConsumes, ApiBody, ApiProperty } from '@nestjs/swagger';
+
+class FileUploadDto {
+  @ApiProperty({ type: 'string', format: 'binary' })
+  file: any;
+}
+
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -12,6 +19,11 @@ export class AppController {
   }
 
   @Post('api/upload')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: '文件上传',
+    type: FileUploadDto,
+  })
   @UseInterceptors(FileInterceptor('file', {
     // storage: diskStorage({
     //   destination: 'uploads/',
