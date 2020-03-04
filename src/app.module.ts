@@ -7,6 +7,7 @@ import { PostsModule } from './posts/posts.module';
 import { UsersModule } from './users/users.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { ConfigModule } from "@nestjs/config";
+import { AuthModule } from './auth/auth.module';
 const MAO = require('multer-aliyun-oss');
 
 @Module({
@@ -31,6 +32,7 @@ const MAO = require('multer-aliyun-oss');
     TypeOrmModule.forRoot(),
     PostsModule,
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
