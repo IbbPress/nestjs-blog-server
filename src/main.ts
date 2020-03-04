@@ -18,6 +18,7 @@ async function bootstrap() {
     .setTitle('IbbPress 博客接口文档')
     .setDescription('The IbbPress API description')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup(swaggerPath, app, document);
