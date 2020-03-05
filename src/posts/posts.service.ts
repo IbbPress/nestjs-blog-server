@@ -13,8 +13,19 @@ export class PostService {
     private readonly PostsRepo: Repository<PostEntity>,
   ){}
   
-  async findAll(): Promise<PostEntity[]> {
-    return this.PostsRepo.find();
+  async findAll(option): Promise<any> {
+    const { pageSize=10, pageNo=1, sortField='createAt', sortOrder='descend' } = option;
+    const orderMap = {
+      ascend: 'ASC',
+      descend: 'DESC',
+    }
+    const order = { [sortField]: orderMap[sortOrder] }
+    // console.log('order is', order)
+    return this.PostsRepo.findAndCount({
+      take: pageSize,
+      skip: pageSize * (pageNo - 1),
+      order: order
+    })
   }
 
   findOne(id: string): Promise<PostEntity> {

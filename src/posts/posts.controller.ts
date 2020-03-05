@@ -3,6 +3,7 @@ import { ApiOperation, ApiTags, ApiProperty } from '@nestjs/swagger';
 
 import { CreatePostDto } from "./dto/create-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
+import { PostsQuery } from "./dto/posts-query.dto";
 import { PostEntity } from "./posts.entity";
 import { PostService } from "./posts.service";
 
@@ -13,9 +14,14 @@ export class PostsController {
 
   @Get()
   @ApiOperation({ summary: '博客列表' })
-  async findAll (@Query() query) {
-    const data = await this.postService.findAll();
-    return { data }
+  async findAll (@Query() query: PostsQuery) {
+    const { pageSize=10, pageNo=1 } = query;
+    const page = {
+      pageSize: Number(pageSize),
+      pageNo: Number(pageNo)
+    }
+    const result = await this.postService.findAll(query);
+    return { data: result[0], count: result[1], ...page }
   }
 
   @Get(':id')
