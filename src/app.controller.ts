@@ -1,4 +1,4 @@
-import { Controller, Get, Post, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, UseInterceptors, UploadedFile, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 import { FileInterceptor } from "@nestjs/platform-express";
 import { diskStorage } from  'multer';
@@ -14,8 +14,9 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Render('index')
+  getHello(): object {
+    return { message: 'Hello HBS!' };
   }
 
   @Post('api/upload')
