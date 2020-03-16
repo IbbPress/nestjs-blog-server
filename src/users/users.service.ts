@@ -14,7 +14,7 @@ export class UsersService {
   ) {}
   
   async findAll(): Promise<User[]> {
-    return this.usersRepository.find({ select: ["username", "realName", "email", "desc", "avator", "isActive"] });
+    return this.usersRepository.find({ select: ["username", "nickName", "email", "desc", "avatar", "isActive"] });
   }
 
   findOne(id: string): Promise<User> {
@@ -28,19 +28,19 @@ export class UsersService {
   create(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
     user.username = createUserDto.username;
-    user.realName = createUserDto.realName;
+    user.nickName = createUserDto.nickName;
     user.email = createUserDto.email;
     user.desc = createUserDto.desc;
-    user.avator = createUserDto.avator;
+    user.avatar = createUserDto.avatar;
 
     return this.usersRepository.save(user);
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-    const { username, realName, email, desc, avator } = updateUserDto
+    const { username, nickName, email, desc, avatar } = updateUserDto
     const user = await this.usersRepository.findOne(id);
     this.usersRepository.merge(user, {
-      username, realName, email, desc, avator
+      username, nickName, email, desc, avatar
     });
     console.log('user is: ', user);
     return this.usersRepository.save(user);
