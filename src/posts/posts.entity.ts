@@ -8,8 +8,11 @@ export class PostEntity {
   @Column()
   title: string;
 
-  @Column()
+  @Column({ type: 'longtext' })
   content: string;
+
+  @Column({ type: 'longtext', nullable: true })
+  contentHtml: string;
 
   @Column({ default: 'wencaizhang' })
   author: string;
