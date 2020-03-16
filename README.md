@@ -26,9 +26,9 @@
 | ---      | ---         | ---    | ---      |---        | ---    | ---    |
 | id       | int         | Y      | Y        | Y         |        | 主键递增 |
 | username | varchar(20) |        | Y        |           |        | 用户名   |
-| realName | varchar(10) |        | Y        |           |        | 真实名字 |
+| nickName | varchar(10) |        | Y        |           |        | 真实名字 |
 | password | varchar(20) |        | Y        |           |        | 密码    |
-| avator   | varchar(255) |       | Y        |           |        | 头像    |
+| avatar   | varchar(255) |       | Y        |           |        | 头像    |
 | isActive | tinyint     |        | Y        |           |        | 是否可以使用  |
 | email    | varchar(255) |        | Y        |           |        | 邮箱  |
 | desc     | varchar(255) |        | Y        |           |        | 个人说明  |
