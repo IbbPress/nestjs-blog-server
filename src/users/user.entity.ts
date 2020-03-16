@@ -9,7 +9,7 @@ export class User {
   username: string;
 
   @Column({ nullable: true })
-  realName: string;
+  nickName: string;
 
   @Column({ nullable: true })
   password: string;
@@ -21,7 +21,7 @@ export class User {
   desc: string;
 
   @Column({ nullable: true })
-  avator: string;
+  avatar: string;
 
   @Column({ default: true })
   isActive: boolean;
