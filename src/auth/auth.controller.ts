@@ -1,11 +1,11 @@
 import { Controller, Get, Post, Body, Request, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiBearerAuth, ApiHeader } from '@nestjs/swagger';
 import { LoginDto }     from "./dto/login.dto";
 import { RegisterDto }  from "./dto/register.dto";
 import { AuthGuard }    from '@nestjs/passport';
 import { AuthService } from "./auth.service";
 
-@Controller('auth')
+@Controller('api/auth')
 @ApiTags('认证')
 export class AuthController {
 
@@ -28,6 +28,10 @@ export class AuthController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get('profile')
+  @ApiHeader({
+    name: 'Authorization',
+    description: 'Auth token'
+  })
   @ApiBearerAuth()
   @ApiOperation({ summary: '获取用户信息'})
   async getProfile(@Request() req) {
