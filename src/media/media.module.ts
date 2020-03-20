@@ -2,12 +2,15 @@ import { Module } from '@nestjs/common';
 import { MediaController } from './media.controller';
 import { MediaService } from './media.service';
 import { MulterModule } from '@nestjs/platform-express';
+import { Media } from "./media.entity";
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 const MAO = require('multer-aliyun-oss');
 const crypto = require('crypto');
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([Media]),
     MulterModule.registerAsync({
       useFactory () {
         return {
