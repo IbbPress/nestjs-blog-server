@@ -24,8 +24,9 @@ const crypto = require('crypto');
             filename (req, file, cb) {
               crypto.pseudoRandomBytes(16, (err, raw) => {
                 const date = new Date()
-                const time = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-`
-                cb(err, err ? undefined : time + file.originalname);
+                const time = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+                const name = `${time}-${raw.toString('hex').substring(0, 8)}-${file.originalname}`
+                cb(err, err ? undefined : name);
               });
             }
           })
