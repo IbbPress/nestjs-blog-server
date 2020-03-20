@@ -24,7 +24,8 @@ export class PostService {
     return this.PostsRepo.findAndCount({
       take: pageSize,
       skip: pageSize * (pageNo - 1),
-      order: order
+      order: order,
+      select: ['id', 'title', 'createAt', 'updateAt', 'isPublic', 'del']
     })
   }
 
