@@ -5,6 +5,8 @@
   "author": "wencaizhang <1052642137@qq.com>",
   "license": "MIT",
   "scripts": {
+    "prepm2": "nest build",
+    "pm2": "pm2 start --name nest dist/main.js",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
