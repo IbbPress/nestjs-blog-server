@@ -6,6 +6,8 @@ import { PostEntity } from "./posts.entity";
 import { CreatePostDto } from "./dto/create-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
 
+const _ = require("lodash")
+
 @Injectable()
 export class PostService {
   constructor(
@@ -33,6 +35,10 @@ export class PostService {
     return this.PostsRepo.findOne(id);
   }
 
+  public(id: number): Promise<any> {
+    return this.PostsRepo.update(id, { isPublic: true });
+  }
+
   create(createPostDto: CreatePostDto): Promise<PostEntity> {
     const post = new PostEntity();
     post.title = createPostDto.title;
@@ -45,12 +51,22 @@ export class PostService {
   }
 
   async update(id: string, updatePostDto: UpdatePostDto): Promise<PostEntity> {
-    const { title, content } = updatePostDto
+    const { title, content, isPublic } = updatePostDto
     const updateAt = Date.now()
     const post = await this.PostsRepo.findOne(id)
-    this.PostsRepo.merge(post, {
-      title, content, updateAt
-    })
+
+    const data = { updateAt }
+    if (!_.isUndefined(title)) {
+      Object.assign(data, { title })
+    }
+    if (!_.isUndefined(content)) {
+      Object.assign(data, { content })
+    }
+    if (!_.isUndefined(isPublic)) {
+      Object.assign(data, { isPublic })
+    }
+
+    this.PostsRepo.merge(post, data)
     return this.PostsRepo.save(post)
   }
 
