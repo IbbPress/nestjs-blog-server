@@ -6,7 +6,13 @@ export class Media {
   id: number;
 
   @Column()
-  name: string;
+  originalname: string;
+
+  @Column()
+  filename: string;
+  
+  @Column()
+  mimetype: string;
 
   @Column({ type: 'longtext' })
   url: string;

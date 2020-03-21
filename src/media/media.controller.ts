@@ -22,14 +22,16 @@ export class MediaController {
   })
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile (@UploadedFile('file') file) {
+    const date = new Date()
     file.url = file.url.replace(process.env.OSS_ALIYUN_DOMAIN, process.env.OSS_MY_DOMAIN)
+    file.date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
     file.oss = 'aliyun'
     file.name = file.originalname
-    const date = new Date()
-    file.date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-    console.log(file);
     
-    await this.mediaService.create(file)
+    const resp = await this.mediaService.create(file)
+    console.log(file);
+    file.id = resp.id
+    
     return file
   }
 

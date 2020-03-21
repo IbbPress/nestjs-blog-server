@@ -22,8 +22,8 @@ export class MediaService {
 
   create(createMediaDto: Media): Promise<Media> {
     const media = new Media();
-    const { name, url, oss, date } = createMediaDto
-    Object.assign(media, { name, url, oss, date })
+    const { originalname, filename, mimetype, url, oss, date } = createMediaDto
+    Object.assign(media, { originalname, filename, mimetype, url, oss, date })
     return this.MediaRepo.save(media);
   }
 
