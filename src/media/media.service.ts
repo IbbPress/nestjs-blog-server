@@ -30,4 +30,8 @@ export class MediaService {
   remove(id: string): Promise<any> {
     return this.MediaRepo.update(id, { del: true });
   }
+
+  removeList(ids: string[]): Promise<any> {
+    return this.MediaRepo.update(ids, { del: true });
+  }
 }
