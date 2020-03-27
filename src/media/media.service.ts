@@ -12,6 +12,7 @@ export class MediaService {
 
   async findAll(option: any): Promise<any> {
     return this.MediaRepo.find({
+      order: { id: -1, date: -1 },
       where: { del: false }
     })
   }
