@@ -27,7 +27,18 @@ export class PostService {
       take: pageSize,
       skip: pageSize * (pageNo - 1),
       order: order,
-      select: ['id', 'title', 'createAt', 'updateAt', 'isPublic', 'del']
+      select: ['id',
+        'title',
+        'createAt',
+        'updateAt',
+        'isPublic',
+        'del',
+        'categories',
+        'tags',
+        'summary',
+        'slug',
+        'img'
+      ]
     })
   }
 
@@ -41,19 +52,33 @@ export class PostService {
 
   create(createPostDto: CreatePostDto): Promise<PostEntity> {
     const post = new PostEntity();
-    post.title = createPostDto.title;
-    post.content = createPostDto.content;
-    post.author = createPostDto.author;
-    post.createAt = Date.now()
+    post.createAt   = Date.now()
+    post.title      = createPostDto.title;
+    post.content    = createPostDto.content;
+    post.author     = createPostDto.author;
+    post.categories = JSON.stringify(createPostDto.categories);
+    post.tags       = JSON.stringify(createPostDto.tags);
+    post.summary    = createPostDto.summary;
+    post.slug       = createPostDto.slug;
+    post.img        = createPostDto.img;
     console.log('post is: ', post);
     
     return this.PostsRepo.save(post);
   }
 
   async update(id: string, updatePostDto: UpdatePostDto): Promise<PostEntity> {
-    const { title, content, isPublic } = updatePostDto
     const updateAt = Date.now()
     const post = await this.PostsRepo.findOne(id)
+    const {
+      title,
+      content,
+      isPublic,
+      categories,
+      tags,
+      summary,
+      slug,
+      img
+    } = updatePostDto
 
     const data = { updateAt }
     if (!_.isUndefined(title)) {
@@ -64,6 +89,21 @@ export class PostService {
     }
     if (!_.isUndefined(isPublic)) {
       Object.assign(data, { isPublic })
+    }
+    if (!_.isUndefined(categories)) {
+      Object.assign(data, { categories: JSON.stringify(categories) })
+    }
+    if (!_.isUndefined(tags)) {
+      Object.assign(data, { tags: JSON.stringify(tags) })
+    }
+    if (!_.isUndefined(summary)) {
+      Object.assign(data, { summary })
+    }
+    if (!_.isUndefined(slug)) {
+      Object.assign(data, { slug })
+    }
+    if (!_.isUndefined(img)) {
+      Object.assign(data, { img })
     }
 
     this.PostsRepo.merge(post, data)
