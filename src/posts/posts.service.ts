@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Like } from 'typeorm';
 import { PostEntity } from "./posts.entity";
 
 import { CreatePostDto } from "./dto/create-post.dto";
@@ -44,6 +44,18 @@ export class PostService {
 
   findOne(id: string): Promise<PostEntity> {
     return this.PostsRepo.findOne(id);
+  }
+
+  findPostsByTag(tag: string): Promise<any> {
+    return this.PostsRepo.find({
+      tags: Like(`%${tag}%`)
+    })
+  }
+
+  findPostsByCategory(category: string): Promise<any> {
+    return this.PostsRepo.find({
+      categories: Like(`%${category}%`)
+    })
   }
 
   public(id: number): Promise<any> {

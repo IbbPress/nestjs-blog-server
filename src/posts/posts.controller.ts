@@ -52,4 +52,16 @@ export class PostsController {
     return { data }
   }
 
+  @Get('tags/:tag')
+  @ApiOperation({ summary: '根据标签查询文章'})
+  async getPostsByTag (@Param('tag') tag: string) {
+    const result = await this.postService.findPostsByTag(tag)
+    return result;
+  }
+  @Get('categories/:category')
+  @ApiOperation({ summary: '根据分类目录查询文章'})
+  async getPostsByCategory (@Param('category') category: string) {
+    const result = await this.postService.findPostsByCategory(category)
+    return result;
+  }
 }

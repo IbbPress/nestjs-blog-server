@@ -11,10 +11,10 @@ export class UpdatePostDto {
   @ApiProperty({ description: '发布状态', example: true, required: false })
   isPublic: boolean
 
-  @ApiProperty({ description: '分类目录', example: "[1,2]" })
+  @ApiProperty({ description: '分类目录', example: [ 'front-end', 'server'] })
   categories: string[]
 
-  @ApiProperty({ description: '标签', example: "[1,2]" })
+  @ApiProperty({ description: '标签', example: [ 'JS-API', 'ES6'] })
   tags: string[]
 
   @ApiProperty({ description: '摘要' })
