@@ -32,6 +32,8 @@ export class PostsController {
   @ApiOperation({ summary: '获取博客详细信息'})
   async findOne(@Param('id') id: string) {
     const data = await this.postService.findOne(id)
+    data.tags = JSON.parse(data.tags)
+    data.categories = JSON.parse(data.categories)
     return { data }
   }
 
@@ -60,12 +62,20 @@ export class PostsController {
   @ApiOperation({ summary: '根据标签查询文章'})
   async getPostsByTag (@Param('tag') tag: string) {
     const result = await this.postService.findPostsByTag(tag)
+    result.forEach(item => {
+      item.tags = JSON.parse(item.tags)
+      item.categories = JSON.parse(item.categories)
+    })
     return result;
   }
   @Get('categories/:category')
   @ApiOperation({ summary: '根据分类目录查询文章'})
   async getPostsByCategory (@Param('category') category: string) {
     const result = await this.postService.findPostsByCategory(category)
+    result.forEach(item => {
+      item.tags = JSON.parse(item.tags)
+      item.categories = JSON.parse(item.categories)
+    })
     return result;
   }
 }
