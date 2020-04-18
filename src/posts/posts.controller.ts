@@ -21,6 +21,10 @@ export class PostsController {
       pageNo: Number(pageNo)
     }
     const result = await this.postService.findAll(query);
+    result[0].forEach(item => {
+      item.tags = JSON.parse(item.tags)
+      item.categories = JSON.parse(item.categories)
+    })
     return { data: result[0], count: result[1], ...page }
   }
 
